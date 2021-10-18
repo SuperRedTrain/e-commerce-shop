@@ -1,23 +1,42 @@
+import {Grid, Card, CardActionArea, CardMedia} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
 
-function ProductList({prods}){
-
-    const ProductImg = ({product}) => {
-        return (
-            //<img src={product.image.url} alt={product.name} height="300" />  
-            <a href={"http://localhost:3000/:" + product.id}><img src={product.image.url} alt={product.name} height="300" /></a>  
-        ) 
+const useStyles = makeStyles({
+    media: {
+        height: 350,
     }
+});
+
+function ProductsImg ({product}) {
+    const classes = useStyles();
 
     return (
-        <div>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
+            <Card>
+                <CardActionArea href={"http://localhost:3000/products/:" + product.id}>
+                    <CardMedia className={classes.media} image={product.image.url} ></CardMedia>
+                </CardActionArea>
+            </Card>
+            {/* <a href={"http://localhost:3000/products/:" + product.id}><img src={product.image.url} alt={product.name} width="300" /></a>   */}            
+           
+        </Grid>
+         
+    ); 
+}
 
-        {
-            prods.map((product) => {
-            return  <ProductImg key={product.id} product={product} />       
-            })
-        }
 
-    </div>
+
+function ProductList({prods}){
+    
+
+    return (
+        <Grid container spacing={2}>
+            {
+                prods.map((product) => {
+                return  <ProductsImg key={product.id} product={product} />       
+                })
+            }
+        </Grid>
     ) 
 
 }
