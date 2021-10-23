@@ -3,7 +3,7 @@ import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
     media: {
-        height: 350,
+        height: 200,
     }
 });
 
@@ -13,7 +13,7 @@ function ProductsImg ({product}) {
     return (
         <Grid item xs={12} sm={6} md={4} lg={3}>
             <Card>
-                <CardActionArea href={"http://localhost:3000/products/:" + product.id}>
+                <CardActionArea href={"http://localhost:3000/products/" + product.id}>
                     <CardMedia className={classes.media} image={product.image.url} ></CardMedia>
                 </CardActionArea>
             </Card>

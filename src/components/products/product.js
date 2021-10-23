@@ -4,19 +4,21 @@ import {Grid} from "@material-ui/core";
 import { commerce } from '../../lib/commerce';
 import "react-image-gallery/styles/css/image-gallery.css";
 import ImageGallery from 'react-image-gallery';
+import { Button } from "@material-ui/core";
 
 
 
 
 
-function Product() {
+function Product({handleAddToCart}) {
 
     const { productId } = useParams();
     const [product, setProduct] = useState(undefined);
 
     useEffect(() => {
+        console.log(productId);
         commerce.products.retrieve(productId).then(result => {
-            console.log(result);
+        //    console.log(result);
             setProduct(result);
         });
     }, [productId]) 
@@ -54,9 +56,13 @@ function Product() {
                 <Grid item sm={12} md={6}>
                 
                     <h2>{product.name}</h2>
-                
+
                     <h3>Price: {product.price.formatted_with_symbol}</h3>
-                                    
+                    <Button onClick={
+                        () => {
+                            handleAddToCart(product.id, 1);
+                        }
+                    }>Add to cart</Button>     
                     <h3>Description:</h3> 
                     {product.description.replace(/(<([^>]+)>)/ig, ' ')} 
                                 
