@@ -38,6 +38,38 @@ function App() {
 
   }
 
+  const emptyCart = () => {
+    commerce.cart.empty().then(
+      (response) => {
+        console.log(response);
+        setCart(response.cart);
+      }
+    )
+
+  }
+
+  const updateQuantity = (itemId, quantity) => {
+    commerce.cart.update(itemId, {quantity: quantity}).then(
+      (response) => {
+        console.log(response);
+        setCart(response.cart);
+      }
+    )
+
+  }
+
+  const removeItem = (itemId) => {
+    commerce.cart.remove(itemId).then(
+      (response) => {
+        console.log(response);
+        setCart(response.cart);
+      }
+    )
+
+  }
+
+
+
   const [products, setProducts] = useState([]);
   useEffect(() => {commerce.products.list().then( result => {
     console.log(result.data);
@@ -70,7 +102,8 @@ function App() {
                   <Product handleAddToCart={handleAddToCart}/>
                 </Route> 
                 <Route exact path={["/cart"]}>
-                  <Cart cart={cart} />
+                  <Cart cart={cart} emptyCart={emptyCart} 
+                    updateQuantity={updateQuantity} removeItem={removeItem}/>
                 </Route> 
               </Switch>
             </BrowserRouter>

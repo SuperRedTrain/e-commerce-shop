@@ -1,5 +1,9 @@
 import {Grid} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
+import { Button } from "@material-ui/core";
+
+
+
 
 const useStyles = makeStyles({
     image: {
@@ -18,22 +22,51 @@ const useStyles = makeStyles({
     },
 });
 
-function CartItem({cartItem}){
+function CartItem({cartItem, updateQuantity, removeItem}){
     const classes = useStyles();
     return (        
         <Grid item container>
             <Grid item xs={12} sm={4}>
                 <div className={classes.image}>
-                    <img src={cartItem.image.url} className={classes.img}></img>
+                    <img src={cartItem.image.url} className={classes.img} alt="pictures"></img>
                 </div>
             </Grid>
             <Grid item xs={12} sm={6} container direction='column'>
                 <Grid item>
                     {cartItem.name}
                 </Grid>
-                <Grid item>
-                    quantity: {cartItem.quantity}
-                </Grid>                
+                <Grid item container>
+                    <Grid item>
+                        <Button onClick={
+                            () => {
+                                updateQuantity(cartItem.id, cartItem.quantity-1);
+                            }
+                        }> - </Button>
+                    </Grid>
+
+                    <Grid item>
+                        quantity: {cartItem.quantity}
+                    </Grid>
+
+                    <Grid item>
+                        <Button onClick={
+                            () => {
+                                updateQuantity(cartItem.id, cartItem.quantity+1);
+                            }
+                        }> + </Button>
+                    </Grid>
+
+                    <Grid item>
+                        <Button onClick={
+                            () => {
+                                removeItem(cartItem.id);
+                            }
+                        }> Remove </Button>
+                    </Grid>
+
+                </Grid> 
+
+              
             </Grid>
             <Grid item xs={12} sm={2}>
                 <div>{cartItem.line_total.formatted_with_symbol}</div>
