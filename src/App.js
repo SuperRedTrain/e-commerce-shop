@@ -10,6 +10,7 @@ import ProductList from './components/products/products';
 import Product from './components/products/product';
 import Navbar from './components/navbar';
 import Cart from './components/cart/cart';
+import Checkout from './components/checkout/checkout';
 
 
 
@@ -103,8 +104,12 @@ function App() {
                 </Route> 
                 <Route exact path={["/cart"]}>
                   <Cart cart={cart} emptyCart={emptyCart} 
-                    updateQuantity={updateQuantity} removeItem={removeItem}/>
+                    updateQuantity={updateQuantity} removeItem={removeItem} />
                 </Route> 
+                <Route exact path="/checkout">
+                  <Checkout cart={cart} />
+
+                </Route>
               </Switch>
             </BrowserRouter>
           }

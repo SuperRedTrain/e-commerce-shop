@@ -1,10 +1,14 @@
 import {Grid} from "@material-ui/core";
 import CartItem from "./cartItem";
 import { Button } from "@material-ui/core";
+import { Link } from 'react-router-dom';
+
 
 
 
 function Cart({cart, emptyCart, updateQuantity, removeItem}){
+
+
     if(!cart || !cart.line_items) {
         return <div>Loading the shopping cart...</div>
     }
@@ -12,6 +16,9 @@ function Cart({cart, emptyCart, updateQuantity, removeItem}){
     if(cart.total_items === 0) {
         return <div> Your shopping cart is empty. </div>
     }
+
+
+
 
 
     return(
@@ -31,9 +38,9 @@ function Cart({cart, emptyCart, updateQuantity, removeItem}){
 
             </Grid>
 
-            <Grid item container direction='column'>
+            <Grid item container>
 
-                <Grid item xs={false} sm={1} md={2} lg={2}></Grid>
+                <Grid item xs={false} sm={2} md={4}></Grid>
 
                 <Grid item>
                     <Button onClick={
@@ -41,6 +48,14 @@ function Cart({cart, emptyCart, updateQuantity, removeItem}){
                                 emptyCart();
                             }
                         }> EMPTY YOUR CART </Button>
+                </Grid>
+
+                <Grid item>
+                    <Button component={Link} to="/checkout" 
+                    
+                        >     
+                        Proceed to Checkout 
+                    </Button>
                 </Grid>
 
             </Grid>
