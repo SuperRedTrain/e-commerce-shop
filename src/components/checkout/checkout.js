@@ -15,7 +15,7 @@ function Checkout({ cart }) {
         if (cart.id) {
             commerce.checkout.generateToken(cart.id, { "type": "cart" }).then(
                 (response) => {
-                    console.log(response);
+                    // console.log(response);
                     setcheckoutToken(response.id);                  
                 }
             );

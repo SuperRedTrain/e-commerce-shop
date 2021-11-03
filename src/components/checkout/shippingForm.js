@@ -1,9 +1,16 @@
 import {Grid, MenuItem, Select, Button, TextField } from "@material-ui/core";
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import ReactPhoneInput from "react-phone-input-material-ui";
+import { commerce } from "../../lib/commerce";
 
 function ShippingForm({checkoutToken, setshippingInfo}) {
-    const [country, setcountry] = useState("1");
+    const [country, setcountry] = useState("US");
+    const [countries, setCountries] = useState(undefined);
+    const [regions, setRegions] = useState(undefined);
+    const [region, setRegion] = useState("");
+    const [shippingMethods, setshippingMethods] = useState(undefined);
+    const [shippingMethod, setshippingMethod] = useState("");
+
 
     const [fullName, setfullName] = useState("");
     const [nameError, setNameError] = useState(false);
@@ -21,6 +28,51 @@ function ShippingForm({checkoutToken, setshippingInfo}) {
     const [zipcodeError, setZipcodeError] = useState(false);
     const [zipcodeHelper, setZipcodeHelper] = useState("");
 
+    useEffect(() => {
+        commerce.services.localeListShippingCountries(checkoutToken).then(
+            (response) => {
+                setCountries(response["countries"]);
+                setcountry(Object.keys(response["countries"])[0]);
+            }
+        )
+
+    }, [checkoutToken]);
+
+    console.log(countries);
+    console.log(country);
+
+    useEffect(() => {
+        if(country) {
+            commerce.services.localeListShippingSubdivisions(checkoutToken, country).then(
+                (response) => {
+                    setRegions(response["subdivisions"]);
+                    setRegion(Object.keys(response["subdivisions"])[0]);
+                }
+            )
+        }
+
+    }, [checkoutToken, country]);
+
+    console.log(regions);
+    console.log(region);
+
+    useEffect(() => {
+        if (country && region) {
+            commerce.checkout.getShippingOptions(checkoutToken, {
+                "country": country,
+                "region": region,
+            })
+            .then(
+                (response) => {
+                    setshippingMethods(response);
+                    setshippingMethod(response[0]);                
+                }
+            )
+        }
+    }, [checkoutToken, country, region]);
+
+    console.log(shippingMethods);
+    console.log(shippingMethod);
 
 
     const onNameChange = (e) => {
@@ -128,8 +180,10 @@ function ShippingForm({checkoutToken, setshippingInfo}) {
                     "phone": phone,
                     "address": address,
                     "city": city,
-                    "zipcode": zipcode,
                     "country": country,
+                    "region": region,
+                    "shippingMethod": shippingMethod,
+                    "zipcode": zipcode,                    
                 }
             )
         }
@@ -181,20 +235,49 @@ function ShippingForm({checkoutToken, setshippingInfo}) {
                 />
             </Grid>
 
+            { countries && country && <Grid item>
+                <Select value={country} onChange={(e) => {setcountry(e.target.value)}}>
+{/*                     <MenuItem value="1">Country 1</MenuItem>
+                    <MenuItem value="2">Country 2</MenuItem> */}
+                    {
+                        Object.keys(countries).map((countryCode) =>{
+                            return <MenuItem value={countryCode} key={countryCode}>{countries[countryCode]}</MenuItem>
+                        })
+                    }
+                </Select>
+
+            </Grid>}
+
+            { regions && region && <Grid item>
+                <Select value={region} onChange={(e) => {setRegion(e.target.value)}}>
+                    {
+                        Object.keys(regions).map((regionCode) =>{
+                            return <MenuItem value={regionCode} key={regionCode}>{regions[regionCode]}</MenuItem>
+                        })
+                    }
+                </Select>
+
+            </Grid>}
+
+            { shippingMethods && shippingMethod && <Grid item>
+                <Select value={shippingMethod} onChange={(e) => {setshippingMethod(e.target.value)}}>
+                    {
+                        shippingMethods.map((oneMethod) =>{
+                            return <MenuItem value={oneMethod["id"]} key={oneMethod["id"]}>{oneMethod["description"]}</MenuItem>
+                        })
+                    }
+                </Select>
+
+            </Grid>}            
+
+
+
             <Grid item>
                 <TextField label="Zipcode" onChange={onZipcodeChange} 
                     error={zipcodeError}
                     helperText={zipcodeHelper}
                     onBlur={onZipcodeUnfocused}
                 />
-            </Grid>
-
-            <Grid item>
-                <Select value={country} onChange={(e) => {setcountry(e.target.value)}}>
-                    <MenuItem value="1">Country 1</MenuItem>
-                    <MenuItem value="2">Country 2</MenuItem>
-                </Select>
-
             </Grid>
 
 

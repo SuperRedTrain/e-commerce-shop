@@ -82,7 +82,7 @@ function App() {
 
 
   return (
-    <Grid container direction='column'>
+    <Grid container direction='column' spacing={2}>
       <Grid item>
         <header>< Navbar cartItems={cart.total_items}/></header>
       </Grid>
