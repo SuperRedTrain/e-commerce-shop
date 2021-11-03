@@ -35,7 +35,7 @@ function CartItem({cartItem, updateQuantity, removeItem}){
                 <Grid item>
                     {cartItem.name}
                 </Grid>
-                <Grid item container>
+                <Grid item container style={{alignItems: "center"}}>
                     <Grid item>
                         <Button onClick={
                             () => {
@@ -44,8 +44,8 @@ function CartItem({cartItem, updateQuantity, removeItem}){
                         }> - </Button>
                     </Grid>
 
-                    <Grid item>
-                        quantity: {cartItem.quantity}
+                    <Grid item >
+                        {cartItem.quantity}
                     </Grid>
 
                     <Grid item>
