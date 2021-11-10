@@ -15,6 +15,9 @@ function ShippingForm({checkoutToken, setshippingInfo}) {
     const [fullName, setfullName] = useState("");
     const [nameError, setNameError] = useState(false);
     const [nameHelper, setNameHelper] = useState("");
+    const [email, setEmail] = useState("");
+    const [emailError, setEmailError] = useState(false);
+    const [emailHelper, setEmailHelper] = useState("");
     const [phone, setPhone] = useState("");
     const [phoneError, setPhoneError] = useState(false);
     const [phoneHelper, setPhoneHelper] = useState("");
@@ -27,6 +30,9 @@ function ShippingForm({checkoutToken, setshippingInfo}) {
     const [zipcode, setZipcode] = useState("");
     const [zipcodeError, setZipcodeError] = useState(false);
     const [zipcodeHelper, setZipcodeHelper] = useState("");
+
+
+
 
     useEffect(() => {
         commerce.services.localeListShippingCountries(checkoutToken).then(
@@ -86,6 +92,20 @@ function ShippingForm({checkoutToken, setshippingInfo}) {
         } else {
             setNameError(false);
             setNameHelper("");
+        }
+    }
+
+    const onEmailChange = (e) => {
+        setEmail(e.target.value)
+    }
+
+    const onEmailUnfocused = (e) => {
+        if (! email) {
+            setEmailError(true);
+            setEmailHelper("Please provide your email.");
+        } else {
+            setEmailError(false);
+            setEmailHelper("");
         }
     }
 
@@ -157,6 +177,11 @@ function ShippingForm({checkoutToken, setshippingInfo}) {
             setNameHelper("Please provide your full name.");
         }
 
+        if (! email){
+            setEmailError(true);
+            setEmailHelper("Please provide your email.");
+        }
+
         if (! address) {
             setAddressError(true);
             setAddressHelper("Please provide your address.");
@@ -178,12 +203,13 @@ function ShippingForm({checkoutToken, setshippingInfo}) {
                 {
                     "name": fullName,
                     "phone": phone,
-                    "address": address,
+                    "street": address,
                     "city": city,
                     "country": country,
                     "region": region,
-                    "shippingMethod": shippingMethod,
-                    "zipcode": zipcode,                    
+                    "shipping": shippingMethod,
+                    "zip": zipcode,
+                    "email": email,                    
                 }
             )
         }
@@ -202,6 +228,14 @@ function ShippingForm({checkoutToken, setshippingInfo}) {
                     error={nameError}
                     helperText={nameHelper}
                     onBlur={onNameUnfocused}
+                />
+            </Grid>
+
+            <Grid item>
+                <TextField label="Email" onChange={onEmailChange} 
+                    error={emailError}
+                    helperText={emailHelper}
+                    onBlur={onEmailUnfocused}
                 />
             </Grid>
 
@@ -237,8 +271,7 @@ function ShippingForm({checkoutToken, setshippingInfo}) {
 
             { countries && country && <Grid item>
                 <Select value={country} onChange={(e) => {setcountry(e.target.value)}}>
-{/*                     <MenuItem value="1">Country 1</MenuItem>
-                    <MenuItem value="2">Country 2</MenuItem> */}
+
                     {
                         Object.keys(countries).map((countryCode) =>{
                             return <MenuItem value={countryCode} key={countryCode}>{countries[countryCode]}</MenuItem>

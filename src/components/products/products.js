@@ -13,7 +13,7 @@ function ProductsImg ({product}) {
     return (
         <Grid item xs={12} sm={6} md={4} lg={3}>
             <Card>
-                <CardActionArea href={"http://localhost:3000/products/" + product.id}>
+                <CardActionArea href={"/products/" + product.id}>
                     <CardMedia className={classes.media} image={product.image.url} ></CardMedia>
                 </CardActionArea>
             </Card>
