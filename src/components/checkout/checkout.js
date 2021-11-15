@@ -81,7 +81,11 @@ function Checkout({ cart }) {
             </Grid>
 
             <Grid item>
-                <Button onClick={(event) => {handlePlaceOrder(checkout, shippingInfo, paymentMethod)}}>Place your order</Button>
+                <Button 
+                    onClick={
+                        (event) => {handlePlaceOrder(checkout, shippingInfo, paymentMethod)}}                    
+                    disabled = {!shippingInfo.email || !paymentMethod.id}
+                    >Place your order</Button>
             </Grid>
 
         </Grid>
