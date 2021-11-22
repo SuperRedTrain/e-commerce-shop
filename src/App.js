@@ -11,6 +11,7 @@ import Product from './components/products/product';
 import Navbar from './components/navbar';
 import Cart from './components/cart/cart';
 import Checkout from './components/checkout/checkout';
+import Login from './components/login';
 
 
 
@@ -108,7 +109,9 @@ function App() {
                 </Route> 
                 <Route exact path="/checkout">
                   <Checkout cart={cart} />
-
+                </Route>
+                <Route exact path="/login">
+                  <Login />
                 </Route>
               </Switch>
             </BrowserRouter>

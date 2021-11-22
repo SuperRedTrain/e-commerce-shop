@@ -2,9 +2,11 @@ import {AppBar, Toolbar, Typography, IconButton, Badge} from "@material-ui/core"
 import StorefrontIcon from '@material-ui/icons/Storefront';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 
+import { Button } from "@material-ui/core";
+
 function Navbar({cartItems}){
     return (
-        <AppBar position="static" >
+        <AppBar position="static" color="inherit">
         <Toolbar>            
             <IconButton href="/">
                 <StorefrontIcon />
@@ -14,7 +16,10 @@ function Navbar({cartItems}){
                 <Badge badgeContent={cartItems} color="secondary">
                     <ShoppingCartOutlinedIcon />
                 </Badge>
-            </IconButton>  
+            </IconButton> 
+            <Button href="/login">
+                Login
+            </Button> 
          
         </Toolbar>          
         </AppBar>
