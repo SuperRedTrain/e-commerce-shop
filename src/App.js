@@ -12,6 +12,7 @@ import Navbar from './components/navbar';
 import Cart from './components/cart/cart';
 import Checkout from './components/checkout/checkout';
 import Login from './components/login';
+import Homepage from './components/homepage';
 
 
 
@@ -67,7 +68,6 @@ function App() {
         setCart(response.cart);
       }
     )
-
   }
 
 
@@ -80,12 +80,11 @@ function App() {
   }, []);
 
 
-
-
+ 
   return (
     <Grid container direction='column' spacing={2}>
       <Grid item>
-        <header>< Navbar cartItems={cart.total_items}/></header>
+        <header>< Navbar cartItems={cart.total_items} /></header>
       </Grid>
       <Grid item container>
 
@@ -99,6 +98,9 @@ function App() {
               <Switch>
                 <Route exact path={["/"]}>
                   <ProductList prods={products} />
+                </Route> 
+                <Route exact path={["/user/:userId"]}>
+                  <Homepage />
                 </Route> 
                 <Route exact path={["/products/:productId"]}>
                   <Product handleAddToCart={handleAddToCart}/>

@@ -3,8 +3,19 @@ import StorefrontIcon from '@material-ui/icons/Storefront';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 
 import { Button } from "@material-ui/core";
+import { commerce } from '../lib/commerce';
+
+
+
 
 function Navbar({cartItems}){
+    console.log(commerce.customer.isLoggedIn());
+
+/*     const handleLogout = () => {
+        commerce.customer.logout();
+    } */
+
+    
     return (
         <AppBar position="static" color="inherit">
         <Toolbar>            
@@ -17,12 +28,25 @@ function Navbar({cartItems}){
                     <ShoppingCartOutlinedIcon />
                 </Badge>
             </IconButton> 
-            <Button href="/login">
-                Login
-            </Button> 
+
+            { commerce.customer.isLoggedIn() ? (
+                <Button href="/" 
+                onClick={() => commerce.customer.logout()}
+                 >
+                    LOGOUT
+                </Button>
+            ) : (
+                <Button href="/login">
+                    LOGIN
+                </Button> 
+            )}
+
+
          
         </Toolbar>          
         </AppBar>
+
+
     );
 }
 

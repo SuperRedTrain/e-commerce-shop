@@ -7,6 +7,7 @@ function Login(){
     const [email, setEmail] = useState("");
     const [emailError, setEmailError] = useState(false);
     const [emailHelper, setEmailHelper] = useState("");
+    const [emailSent, setEmailSent] = useState(false);
 
     const onEmailChange = (e) => {
         setEmail(e.target.value)
@@ -29,13 +30,18 @@ function Login(){
             setEmailHelper("Please provide your email.");
         } else {
             console.log(email);
-            commerce.customer.login(email, "http://172.31.23.91:3001/login/callback").then(
+            commerce.customer.login(email, "http://localhost:3002/user").then(
                 (token) => console.log(token));
+                setEmailSent(true);
+                
         }
-
-
-
     }
+
+    if(emailSent) {
+        return <div>An email is sent to your email address.</div>
+    }
+
+
     return(        
         <Grid item container direction="column">
             <Grid item>
