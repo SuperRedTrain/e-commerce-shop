@@ -8,8 +8,10 @@ import { commerce } from '../lib/commerce';
 
 
 
+
 function Navbar({cartItems}){
     console.log(commerce.customer.isLoggedIn());
+    
 
 /*     const handleLogout = () => {
         commerce.customer.logout();
@@ -28,6 +30,11 @@ function Navbar({cartItems}){
                     <ShoppingCartOutlinedIcon />
                 </Badge>
             </IconButton> 
+
+            <Button href={"/user/"}>
+                ORDERS
+            </Button>  
+
 
             { commerce.customer.isLoggedIn() ? (
                 <Button href="/" 

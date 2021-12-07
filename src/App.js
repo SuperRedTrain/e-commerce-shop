@@ -79,6 +79,8 @@ function App() {
     });
   }, []);
 
+  // const [userParam, setUserParam] = useState("");
+
 
  
   return (
@@ -99,7 +101,7 @@ function App() {
                 <Route exact path={["/"]}>
                   <ProductList prods={products} />
                 </Route> 
-                <Route exact path={["/user/:userId"]}>
+                <Route exact path={["/user/:userId", "/user"]}>
                   <Homepage />
                 </Route> 
                 <Route exact path={["/products/:productId"]}>
