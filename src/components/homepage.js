@@ -2,8 +2,20 @@ import { useParams } from "react-router";
 import { commerce } from '../lib/commerce';
 import { useState,useEffect } from "react";
 import {Grid} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+    head: {
+        backgroundColor: "lightgrey",        
+    },
+    items: {
+        backgroundColor: 'white',
+    },
+
+});
 
 function OrderItem({order}){
+    const classes = useStyles();
     let date;
     date = new Date(order.created*1000);
 /*     console.log((date.getMonth()+1)+
@@ -11,19 +23,20 @@ function OrderItem({order}){
                  "/"+ date.getFullYear()) */
 
     return (
-        <Grid item container direction='column' spacing={2}>
-            <Grid item>
+        <Grid item container direction='column' >
+            <Grid item className={classes.head} >
                 <h3>Order placed: {(date.getMonth()+1)+
                     "/"+ date.getDate()+
                     "/"+ date.getFullYear()}</h3>
                 <div>{order.order_value.formatted_with_code}</div>    
             </Grid>
 
-            <Grid item container direction='column'>
+
+            <Grid item container direction='column' className={classes.items} >
                  {order.order.line_items.map(
                     (item) => {
                         return ( 
-                            <Grid item container key={item.id} style={{alignItems: "center"}}>
+                            <Grid item container key={item.id} style={{alignItems: "center"}} >
                                 <Grid item sm={10} md={8}>
                                     {item.product_name}
                                 </Grid>
@@ -36,12 +49,13 @@ function OrderItem({order}){
                                     {item.line_total.formatted_with_code}
                                 </Grid>
 
-
                             </Grid>
                         )
                     }
                 )} 
             </Grid>
+
+            {/* <Grid item spacing={2}></Grid> */}
             
         </Grid>
     ) 
