@@ -10,6 +10,7 @@ function Checkout({ cart }) {
 
     const [shippingInfo, setshippingInfo] = useState({});
     const [paymentMethod, setPaymentMethod] = useState({});
+    const [placedOrder, setPlacedOrder] = useState(false);
 
 
 
@@ -61,11 +62,13 @@ function Checkout({ cart }) {
         commerce.checkout.capture(checkout.id, orderData).then(
             (response) => {
                 console.log(response);
+                setPlacedOrder(true);
             }
         )
     }
 
     if ( !checkout.id) return <h4>Loading ...</h4>
+    if (placedOrder) return <h4>Order placed!</h4>
     return (
         <Grid container direction="column">
             <Grid item>
