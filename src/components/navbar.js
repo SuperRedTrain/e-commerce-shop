@@ -1,6 +1,7 @@
 import {AppBar, Toolbar, Typography, IconButton, Badge} from "@material-ui/core";
 import StorefrontIcon from '@material-ui/icons/Storefront';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import { Button } from "@material-ui/core";
 import { commerce } from '../lib/commerce';
@@ -31,9 +32,13 @@ function Navbar({cartItems}){
                 </Badge>
             </IconButton> 
 
-            <Button href={"/user/"}>
+            <Button href={"/user/orders"}>
                 ORDERS
             </Button>  
+
+            <IconButton href="/profile">
+                <AccountCircleIcon />
+            </IconButton>  
 
 
             { commerce.customer.isLoggedIn() ? (

@@ -13,6 +13,7 @@ import Cart from './components/cart/cart';
 import Checkout from './components/checkout/checkout';
 import Login from './components/login';
 import Homepage from './components/homepage';
+import UserProfile from './components/userprofile';
 
 
 
@@ -101,7 +102,7 @@ function App() {
                 <Route exact path={["/"]}>
                   <ProductList prods={products} />
                 </Route> 
-                <Route exact path={["/user/:userId", "/user"]}>
+                <Route exact path={["/user/:userId", "/user/orders"]}>
                   <Homepage />
                 </Route> 
                 <Route exact path={["/products/:productId"]}>
@@ -117,6 +118,10 @@ function App() {
                 <Route exact path="/login">
                   <Login />
                 </Route>
+                <Route exact path="/profile">
+                  <UserProfile />
+                </Route>
+
               </Switch>
             </BrowserRouter>
           }
