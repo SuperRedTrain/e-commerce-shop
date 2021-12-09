@@ -33,11 +33,15 @@ function Checkout({ cart }) {
         console.log(checkout);
         console.log(shippingInfo);
         console.log(paymentMethod);
+        let splitname = shippingInfo["name"].split(' ');
 
         const orderData = {
             "line_items": checkout.live.line_items,
             "customer": {
-                "email": shippingInfo["email"]
+                "email": shippingInfo["email"],
+                "firstname": splitname[0],
+                "lastname": splitname[1],
+                "phone": shippingInfo["phone"],
                 },
             "shipping": {
                 "name": shippingInfo["name"],

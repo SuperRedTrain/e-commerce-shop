@@ -32,7 +32,17 @@ function ShippingForm({checkoutToken, setshippingInfo}) {
     const [zipcodeHelper, setZipcodeHelper] = useState("");
 
 
+    useEffect(() => {
+        if(commerce.customer.isLoggedIn()){
+            commerce.customer.about().then(
+            (customer) => {console.log(customer);  
+                setPhone(customer.phone);          
+                setEmail(customer.email);  
+                setfullName(customer.firstname.concat(" ", customer.lastname));           
+            }
+        );}
 
+    }, [commerce.customer.isLoggedIn()]); 
 
     useEffect(() => {
         commerce.services.localeListShippingCountries(checkoutToken).then(
@@ -217,6 +227,10 @@ function ShippingForm({checkoutToken, setshippingInfo}) {
 
     console.log(checkoutToken);
 
+
+
+
+
     return (
         <Grid item container direction="column">
             <Grid item>
@@ -225,6 +239,8 @@ function ShippingForm({checkoutToken, setshippingInfo}) {
 
             <Grid item>
                 <TextField label="Full name" onChange={onNameChange} 
+                    InputLabelProps={{ shrink: true }} 
+                    placeholder={fullName}
                     error={nameError}
                     helperText={nameHelper}
                     onBlur={onNameUnfocused}
@@ -233,6 +249,8 @@ function ShippingForm({checkoutToken, setshippingInfo}) {
 
             <Grid item>
                 <TextField label="Email" onChange={onEmailChange} 
+                    InputLabelProps={{ shrink: true }}
+                    placeholder={email}                
                     error={emailError}
                     helperText={emailHelper}
                     onBlur={onEmailUnfocused}
@@ -243,6 +261,7 @@ function ShippingForm({checkoutToken, setshippingInfo}) {
                 <ReactPhoneInput 
                     component = {TextField}
                     onChange = {onPhoneChange}
+                    placeholder = {phone}
                     inputProps = {
                         {
                             error: phoneError,

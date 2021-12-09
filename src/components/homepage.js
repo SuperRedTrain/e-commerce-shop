@@ -101,8 +101,8 @@ function Homepage(){
     }, [commerce.customer.isLoggedIn()]); 
 
     
-    console.log(customeremail)
-    console.log(customerId)
+   // console.log(customeremail)
+    // console.log(customerId)
 
     useEffect(() => {
         if(commerce.customer.isLoggedIn()){
@@ -115,8 +115,6 @@ function Homepage(){
     }, [customerId])
 
 
-
-    console.log(orders)
 
     if(!commerce.customer.isLoggedIn()){
         return <h3>No order history! Please Login first!</h3>
