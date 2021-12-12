@@ -31,6 +31,8 @@ function ShippingForm({checkoutToken, setshippingInfo}) {
     const [zipcodeError, setZipcodeError] = useState(false);
     const [zipcodeHelper, setZipcodeHelper] = useState("");
 
+    const [loggedIn, setLoggedIn] = useState(false);
+
 
     useEffect(() => {
         if(commerce.customer.isLoggedIn()){
@@ -38,7 +40,8 @@ function ShippingForm({checkoutToken, setshippingInfo}) {
             (customer) => {console.log(customer);  
                 setPhone(customer.phone);          
                 setEmail(customer.email);  
-                setfullName(customer.firstname.concat(" ", customer.lastname));           
+                setfullName(customer.firstname.concat(" ", customer.lastname));  
+                setLoggedIn(true);         
             }
         );}
 
@@ -239,21 +242,23 @@ function ShippingForm({checkoutToken, setshippingInfo}) {
 
             <Grid item>
                 <TextField label="Full name" onChange={onNameChange} 
-                    InputLabelProps={{ shrink: true }} 
-                    placeholder={fullName}
+                    InputLabelProps={loggedIn && { shrink: true }} 
+                    placeholder={loggedIn && fullName}
                     error={nameError}
                     helperText={nameHelper}
                     onBlur={onNameUnfocused}
+                    disabled = {loggedIn}
                 />
             </Grid>
 
             <Grid item>
                 <TextField label="Email" onChange={onEmailChange} 
-                    InputLabelProps={{ shrink: true }}
-                    placeholder={email}                
+                    InputLabelProps={loggedIn && { shrink: true }}
+                    placeholder={loggedIn && email}                
                     error={emailError}
                     helperText={emailHelper}
                     onBlur={onEmailUnfocused}
+                    disabled = {loggedIn}
                 />
             </Grid>
 
@@ -262,6 +267,7 @@ function ShippingForm({checkoutToken, setshippingInfo}) {
                     component = {TextField}
                     onChange = {onPhoneChange}
                     placeholder = {phone}
+                    disabled = {loggedIn}
                     inputProps = {
                         {
                             error: phoneError,

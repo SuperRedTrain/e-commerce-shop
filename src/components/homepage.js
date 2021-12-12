@@ -17,17 +17,21 @@ const useStyles = makeStyles({
 function OrderItem({order}){
     const classes = useStyles();
     let date;
-    date = new Date(order.created*1000);
-/*     console.log((date.getMonth()+1)+
+    date = new Date(0);
+    date.setUTCSeconds(order.created);
+    
+/*      date = new Date(order.created*1000);
+     console.log((date.getMonth()+1)+
                  "/"+ date.getDate()+
-                 "/"+ date.getFullYear()) */
+                 "/"+ date.getFullYear())  */
 
     return (
         <Grid item container direction='column' >
             <Grid item className={classes.head} >
-                <h3>Order placed: {(date.getMonth()+1)+
+{/*                 <h3>Order placed: {(date.getMonth()+1)+
                     "/"+ date.getDate()+
-                    "/"+ date.getFullYear()}</h3>
+                    "/"+ date.getFullYear()}</h3> */}
+                <h3>Order placed: {date.toLocaleDateString()}</h3>    
                 <div>{order.order_value.formatted_with_code}</div>    
             </Grid>
 

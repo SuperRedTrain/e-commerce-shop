@@ -31,7 +31,7 @@ function Login(){
             setEmailHelper("Please provide your email.");
         } else {
             console.log(email);
-            commerce.customer.login(email, "http://localhost:3003/user").then(
+            commerce.customer.login(email, window.location.href + "/user").then(
                 (token) => {
                     console.log(token);
                     setEmailSent(true);

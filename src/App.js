@@ -102,7 +102,7 @@ function App() {
                 <Route exact path={["/"]}>
                   <ProductList prods={products} />
                 </Route> 
-                <Route exact path={["/user/:userId", "/user/orders"]}>
+                <Route exact path={["/login/user/:userId", "/login/user/orders"]}>
                   <Homepage />
                 </Route> 
                 <Route exact path={["/products/:productId"]}>
