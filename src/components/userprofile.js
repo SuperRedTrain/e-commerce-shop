@@ -143,7 +143,7 @@ function UserProfile(){
                 <TextField label="Email" onChange={onEmailChange} 
                     InputLabelProps={{ shrink: true }}
                     placeholder={email}
-                    disabled={true}
+                    inputProps = {{readOnly: true, }}
                     error={emailError}
                     helperText={emailHelper}
                     onBlur={onEmailUnfocused}

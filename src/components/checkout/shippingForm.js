@@ -247,7 +247,8 @@ function ShippingForm({checkoutToken, setshippingInfo}) {
                     error={nameError}
                     helperText={nameHelper}
                     onBlur={onNameUnfocused}
-                    disabled = {loggedIn}
+                    // disabled = {loggedIn}
+                    inputProps = {loggedIn && {readOnly: true }}
                 />
             </Grid>
 
@@ -258,7 +259,7 @@ function ShippingForm({checkoutToken, setshippingInfo}) {
                     error={emailError}
                     helperText={emailHelper}
                     onBlur={onEmailUnfocused}
-                    disabled = {loggedIn}
+                    inputProps = {loggedIn && {readOnly: true }}
                 />
             </Grid>
 
@@ -267,12 +268,13 @@ function ShippingForm({checkoutToken, setshippingInfo}) {
                     component = {TextField}
                     onChange = {onPhoneChange}
                     placeholder = {phone}
-                    disabled = {loggedIn}
+                    disabled = {loggedIn}                    
                     inputProps = {
+                        
                         {
                             error: phoneError,
                             helperText: phoneHelper,
-                            onBlur: onPhoneUnfocused
+                            onBlur: onPhoneUnfocused,                           
                         }
                     }
                 />
